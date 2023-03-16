@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
-import {Toast, Container, Button, Row, Col} from 'react-bootstrap';
+import {Toast, Container, Button, Row, Col, Form, InputGroup} from 'react-bootstrap';
 
 import './App.css';
+
 
 const App = () => (
   <Container fluid className="p-3  bg-dark">
@@ -19,10 +20,16 @@ const App = () => (
     <Container className="p-5 mb-4 bg-light rounded-3">
       <h1 className="header">Scholar's Mate</h1>
       <Container>
-       Upload a research paper
+        Input research paper
+
+      <InputGroup>
+        <InputGroup.Text>Links</InputGroup.Text>
+        <Form.Control as="textarea" aria-label="With textarea" />
+      </InputGroup>
+
         <span right role="img" aria-label="tada">
 
-        <Button>Upload</Button>
+        <Button>Submit</Button>
          
         </span>
       </Container>
