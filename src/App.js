@@ -1,25 +1,37 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+
+import {Toast, Container, Button, Row, Col} from 'react-bootstrap';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <Container fluid className="p-3  bg-dark">
+    <Row>
+
+    <Col md={2}>
+    <Container className="p-5 mb-4 bg-light rounded-3">
+      
+    </Container>
+
+    </Col>
+
+    <Col md={10}>
+    <Container className="p-5 mb-4 bg-light rounded-3">
+      <h1 className="header">Scholar's Mate</h1>
+      <Container>
+       Upload a research paper
+        <span right role="img" aria-label="tada">
+
+        <Button>Upload</Button>
+         
+        </span>
+      </Container>
+    </Container>
+
+    </Col>
+
+    </Row>
+  </Container>
+);
 
 export default App;
