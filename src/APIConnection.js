@@ -11,21 +11,23 @@ const headers = {
   };
 
   
-export function fetchDataCompletion() {
+export function fetchDataCompletion(strnew) {
 
     const data = JSON.stringify({
       "model": "gpt-3.5-turbo",
       "messages": [
           {
               "role": "user",
-              "content": "what are the latest newa about saudi arabia"
+             // "content": "create a podcast script about "+ strnew + "without music"
+             "content" : "  اكتب محتوى لبودكات عن" +" " + strnew + " "
           }
       ]
   });
 
 axios.post(url+'/v1/chat/completions', data, { headers })
   .then(response => {
-    console.log(response.data);
+    var podcast_content = (JSON.parse(JSON.stringify(response.data))['choices'][0]['message']['content'])
+    console.log(podcast_content);
   })
   .catch(error => {
     console.log(error);

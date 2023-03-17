@@ -3,6 +3,7 @@ import React from 'react';
 import {Container, Button, Row, Col, Card, Collapse, Form} from 'react-bootstrap';
 import extract from './scripts/extract';
 
+import { fetchDataCompletion } from './APIConnection';
 
 
 class ScholarMate extends React.Component {
@@ -24,7 +25,7 @@ class ScholarMate extends React.Component {
     // Changing the state after 2 sec
     // from the time when the component
     // is rendered
-    extract()
+   // extract()
 
   }
   
@@ -38,6 +39,13 @@ class ScholarMate extends React.Component {
 
     this.setState({ chatOpen: !this.state.chatOpen });
 
+  }
+
+  setChats1Open = () =>
+  {
+    var strnew = document.getElementById("myInput").value;
+    alert(strnew);
+    fetchDataCompletion(strnew);
   }
 
   setFinderOpen(){
@@ -122,12 +130,12 @@ class ScholarMate extends React.Component {
   
         <Form>
         <Row className="mb-3">
-          <Form.Group as={Col} size="sm" controlId="formGridEmail">
-            <Form.Control type="email" placeholder="Link for the article" />
+          <Form.Group as={Col} size="sm" controlId="formGridText">
+            <Form.Control type="text" placeholder="Link for the article" id="myInput" />
           </Form.Group>
         </Row>
   
-        <Button variant="light" type="submit">
+        <Button  onClick={() => this.setChats1Open()}>
           Start
         </Button>
       </Form>
