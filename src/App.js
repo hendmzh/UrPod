@@ -5,6 +5,7 @@ import {Container, Col, Row} from 'react-bootstrap';
 import Sidebar from './components/sidebar';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+
 import './App.css';
 import ScholarMate from './ScholarMate';
 

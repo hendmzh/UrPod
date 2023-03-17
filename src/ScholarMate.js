@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 
 import {Container, Button, Row, Col, Card, Collapse, Form, Badge} from 'react-bootstrap';
 import extract from './scripts/extract';
-
+import { SayButton } from 'react-say';
+import Say from 'react-say/lib/Say';
 
 
 class ScholarMate extends React.Component {
@@ -16,12 +17,16 @@ class ScholarMate extends React.Component {
 
        insightsOpen: false,
        chatOpen: false,
+       generateOpen: true,
+       playOpen: false,
        keywords: ['ChatGPT', 'AI', 'OpenAI'],
+       transript: "This is a test value."
       };
   }
   componentDidMount() {
 
    // extract()
+
 
   }
   
@@ -52,6 +57,14 @@ class ScholarMate extends React.Component {
 
   }
 
+  generateTranscript = () => {
+
+
+    this.setState({ transript: "This is a generated text." , playOpen: true, generateOpen: false});
+
+
+  }
+
   render() {
 
     return(
@@ -66,7 +79,7 @@ class ScholarMate extends React.Component {
         </br>
         
         <Container>
-        <h6 className="header text-light" variant="light">What can we do today?</h6> 
+        <h6 className="header text-light" variant="light">Customize your daily podcast</h6> 
         </Container>
         <br>
         </br>
@@ -89,7 +102,6 @@ class ScholarMate extends React.Component {
         <Card.Header>Generate your news podcast episode. </Card.Header>
         <Card.Body>
   
-        <Form>
       <div key='inline-radio' className="mb-3">
           <Form.Check
             inline
@@ -153,11 +165,26 @@ class ScholarMate extends React.Component {
 
 
 
-
-        <Button variant="light" type="submit">
+        <Collapse in={this.state.generateOpen}>
+        <Button onClick={() => this.generateTranscript()} variant="light" type="submit">
           Generate
         </Button>
-      </Form>
+        </Collapse>
+        <br>
+        </br>
+        <Collapse in={this.state.playOpen}>
+     <div>
+      <SayButton
+     onClick={ event => console.log(event) }
+     speak={this.state.transript}
+     pitch={ 1.1 }
+     rate={ 0.9 }
+     volume={ .8 }
+   >
+     Play Podcast
+   </SayButton>
+   </div>
+   </Collapse>
         </Card.Body>
       </Card>
         </Collapse>
@@ -226,6 +253,7 @@ class ScholarMate extends React.Component {
           Start
         </Button>
       </Form>
+
         </Card.Body>
       </Card>
         </Collapse>
