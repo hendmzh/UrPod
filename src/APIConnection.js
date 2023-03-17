@@ -18,8 +18,8 @@ export function fetchDataCompletion(strnew) {
       "messages": [
           {
               "role": "user",
-             // "content": "create a podcast script about "+ strnew + "without music"
-             "content" : "  اكتب محتوى لبودكات عن" +" " + strnew + " "
+              "content": "create a podcast script about "+ strnew + " in details with stories for UrPod podcast hostname Adam "
+            // "content" : "  اكتب محتوى لبودكات عن" +" " + strnew + " "
           }
       ]
   });
