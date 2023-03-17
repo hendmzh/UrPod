@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Container, Button, Row, Col, Card, Collapse, Form} from 'react-bootstrap';
+import {Container, Button, Row, Col, Card, Collapse, Form, Badge} from 'react-bootstrap';
 import extract from './scripts/extract';
 
 
@@ -16,33 +16,39 @@ class ScholarMate extends React.Component {
 
        insightsOpen: false,
        chatOpen: false,
-       finderOpen: false,
+       keywords: ['ChatGPT', 'AI', 'OpenAI'],
       };
   }
   componentDidMount() {
-  
-    // Changing the state after 2 sec
-    // from the time when the component
-    // is rendered
-    extract()
+
+   // extract()
 
   }
   
   setInsightsOpen = () => {
 
+    if(this.state.chatOpen && !this.state.insightsOpen){
+      this.setState({ chatOpen: false });
+    }
+
     this.setState({ insightsOpen: !this.state.insightsOpen });
+
 
   }
 
   setChatOpen = () => {
 
+    if(!this.state.chatOpen && this.state.insightsOpen){
+      this.setState({ insightsOpen: false });
+    }
+
     this.setState({ chatOpen: !this.state.chatOpen });
+
 
   }
 
-  setFinderOpen(){
 
-    this.setState({ finderOpen: !this.state.finderOpen });
+  addKeyWord = () => {
 
   }
 
@@ -51,7 +57,7 @@ class ScholarMate extends React.Component {
     return(
     <Container fluid className="p-3  bg-dark">
       <Container className="p-5 mb-4 bg-dark rounded-3">
-        <h1 className="header text-light" variant="light">Scholar's Mate</h1>
+        <h1 className="header text-light" variant="light">UrPod</h1>
         <br>
         </br>
         <br>
@@ -64,6 +70,9 @@ class ScholarMate extends React.Component {
         </Container>
         <br>
         </br>
+
+        <Row>
+          <Col>
         <Container>
       <Button
           onClick={() => this.setInsightsOpen()}
@@ -73,24 +82,78 @@ class ScholarMate extends React.Component {
           className="text-left"
         >
           <i className="fas fa-lightbulb"></i>
-            Quick Insights
+            Latest News
         </Button>
         <Collapse in={this.state.insightsOpen}>
-        <Card bg='dark' key='dark' text='white' style={{ width: '50rem' }}  className="mb-2">
-        <Card.Header>Use AI to generate a summary, comparisons, and diagrams about a list of articles. </Card.Header>
+        <Card bg='dark' key='dark' text='white'  className="mb-2">
+        <Card.Header>Generate your news podcast episode. </Card.Header>
         <Card.Body>
   
         <Form>
-        <Row className="mb-3">
-          <Form.Group as={Col} controlId="formGridEmail">
-            <Form.Control type="email" placeholder="Link for article 1." />
-          </Form.Group>
-        </Row>
-        <Row className="mb-3">
-          <Form.Group as={Col} controlId="formGridEmail">
-            <Form.Control type="email" placeholder="Link for article 2." />
-          </Form.Group>
-        </Row>
+      <div key='inline-radio' className="mb-3">
+          <Form.Check
+            inline
+            label="Global"
+            name="group1"
+            type='radio'
+            id='inline-radio'
+          />
+          <Form.Check
+            inline
+            label="Local"
+            name="group1"
+            type='radio'
+            id='inline-radio-2'
+          />
+        </div>
+        <br>
+        </br>
+        <br>
+        </br>
+
+        <div key='inline-radio' className="mb-3">
+          <Form.Check
+            inline
+            label="Sports"
+            name="group1"
+            type='switch'
+            id='inline-check'
+          />
+          <Form.Check
+            inline
+            label="Politics"
+            name="group1"
+            type='switch'
+            id='inline-check-2'
+          />
+                    <Form.Check
+            inline
+            label="Weather"
+            name="group1"
+            type='switch'
+            id='inline-check-3'
+          />
+
+<Form.Check
+            inline
+            label="Economy"
+            name="group1"
+            type='switch'
+            id='inline-check-4'
+          />
+
+<Form.Check
+            inline
+            label="Breaking News"
+            name="group1"
+            type='switch'
+            id='inline-check-5'
+          />
+        </div>
+
+
+
+
         <Button variant="light" type="submit">
           Generate
         </Button>
@@ -100,10 +163,11 @@ class ScholarMate extends React.Component {
         </Collapse>
   
         </Container>
+        </Col>
   
         <br>
         </br>
-  
+        <Col>
         <Container>
       <Button
           onClick={() => this.setChatOpen()}
@@ -113,20 +177,51 @@ class ScholarMate extends React.Component {
           className="text-left"
         >
           <i className="fas fa-comments"></i>
-          Chat about a paper
+          Explore a topic
         </Button>
         <Collapse in={this.state.chatOpen}>
-        <Card bg='dark' key='dark' text='white' style={{ width: '50rem' }}  className="mb-2">
-        <Card.Header>chat about an article to understand it better. </Card.Header>
+        <Card bg='dark' key='dark' text='white' className="mb-2">
+        <Card.Header>Enter keywords to explore a new topic and summarize it in a new Broadcast. </Card.Header>
         <Card.Body>
   
         <Form>
         <Row className="mb-3">
           <Form.Group as={Col} size="sm" controlId="formGridEmail">
-            <Form.Control type="email" placeholder="Link for the article" />
+            <Form.Control type="email" placeholder="Keywords" />
           </Form.Group>
         </Row>
-  
+
+        <div>
+
+
+
+      <Badge pill bg="primary">
+        Primary
+      </Badge>{' '}
+      <Badge pill bg="secondary">
+        Secondary
+      </Badge>{' '}
+      <Badge pill bg="success">
+        Success
+      </Badge>{' '}
+      <Badge pill bg="danger">
+        Danger
+      </Badge>{' '}
+      <Badge pill bg="warning" text="dark">
+        Warning
+      </Badge>{' '}
+      <Badge pill bg="info">
+        Info
+      </Badge>{' '}
+      <Badge pill bg="light" text="dark">
+        Light
+      </Badge>{' '}
+      <Badge pill bg="dark">
+        Dark
+      </Badge>
+    </div>
+    <br>
+        </br>
         <Button variant="light" type="submit">
           Start
         </Button>
@@ -135,30 +230,14 @@ class ScholarMate extends React.Component {
       </Card>
         </Collapse>
         </Container>
+        </Col>
+
+        </Row>
   
   
         <br>
         </br>
-  
-        <Container>
-        <Button
-          onClick={() => this.setFinderOpen()}
-          aria-controls="example-collapse-text"
-          aria-expanded={this.state.finderOpen}
-          variant= "secondary" style={{ width: '25rem', height: '3rem', textAlign: 'left' }} text='white'
-          className="text-left"
-        >
-         <i className="fas fa-search"></i>
-  
-          Paper finder
-        </Button>
-        <Collapse in={this.state.finderOpen}>
-        <Card bg='dark' key='dark' text='white' style={{ width: '50rem' }}  className="mb-2">
-        <Card.Header>Use AI to find a list of articles related to a topic. </Card.Header>
-        <Card.Body>.....</Card.Body>
-      </Card>
-        </Collapse>
-        </Container>
+
   
   
   
