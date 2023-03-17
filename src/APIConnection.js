@@ -1,17 +1,20 @@
 
 import axios from 'axios';
+import cors from 'cors';
+
 
 const url = 'https://experimental.willow.vectara.io'
 const headers = {
-    'User-Agent' : 'PostmanRuntime/7.31.1',
-    'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Content-Type': 'application/json',
     'customer-id': 1448396385,
     'x-api-key': 'zqt_VlTGYYnzy_Kq-Fb42ojC3tKr3isBcoMaQv4WKA',
-    'proxy': 'http://localhost:3000/'
+    'Origin' : url,
+    'Access-Control-Allow-Origin': '*',
   };
 
   
-export function fetchData() {
+export function fetchDataCompletion() {
 
     const data = {
         "model": "text-davinci-003",

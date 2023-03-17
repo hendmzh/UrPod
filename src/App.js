@@ -5,9 +5,10 @@ import {Container, Button, Row, Col, Card, Accordion} from 'react-bootstrap';
 import Sidebar from './components/sidebar';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { fetchData } from './APIConnection';
+import { fetchDataCompletion } from './APIConnection';
 
 import './App.css';
+
 
 
 const App = () => (
@@ -93,6 +94,7 @@ const App = () => (
 
 );
 
-fetchData()
+fetchDataCompletion()
+
 
 export default App;
