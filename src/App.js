@@ -5,6 +5,8 @@ import {Container, Button, Row, Col, Card, Accordion} from 'react-bootstrap';
 import Sidebar from './components/sidebar';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import { fetchData } from './APIConnection';
+
 import './App.css';
 
 
@@ -90,5 +92,7 @@ const App = () => (
   </Container>
 
 );
+
+fetchData()
 
 export default App;
