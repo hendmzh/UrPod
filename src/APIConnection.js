@@ -1,3 +1,5 @@
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
 
 import axios from 'axios';
 
@@ -11,7 +13,7 @@ const headers = {
   };
 
   
-export function fetchDataCompletion(strnew) {
+export async function fetchDataCompletion(strnew) {
 
     const data = JSON.stringify({
       "model": "gpt-3.5-turbo",
@@ -24,13 +26,17 @@ export function fetchDataCompletion(strnew) {
       ]
   });
 
-axios.post(url+'/v1/chat/completions', data, { headers })
+
+  var resule ="2";
+ await axios.post(url+'/v1/chat/completions', data, { headers })
   .then(response => {
     var podcast_content = (JSON.parse(JSON.stringify(response.data))['choices'][0]['message']['content'])
     console.log(podcast_content);
+    resule = podcast_content;
   })
   .catch(error => {
     console.log(error);
   });  
 
+  return resule;
 }

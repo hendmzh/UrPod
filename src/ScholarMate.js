@@ -47,11 +47,13 @@ class ScholarMate extends React.Component {
 
   }
 
-  setChats1Open = () =>
+  setChats1Open = async () =>
   {
     var strnew = document.getElementById("myInput").value;
     alert(strnew);
-    fetchDataCompletion(strnew);
+    var res = "1";
+     res = await fetchDataCompletion(strnew);
+    alert(res);
   }
 
   setFinderOpen(){}
