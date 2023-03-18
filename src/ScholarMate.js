@@ -23,6 +23,8 @@ class ScholarMate extends React.Component {
        chatOpen: true,
        storyOpen: false,
        generateOpen: true,
+       generateButtonDisabled: false,
+       generateButtonText: "Generate",
        generateKeywordOpen: true,
        generateKeywordChatOpen: true,
        playKeywordStoryOpen: false,
@@ -97,6 +99,7 @@ class ScholarMate extends React.Component {
       var lang_ = this.state.lang_s1
 
       var strnew = document.getElementById("chat").value;
+      this.setState({ generateButtonDisabled: true, generateButtonText: "Generating..." });
 
     result = await fetchDataCompletion(strnew, "chat", lang_);
     this.setState({ keywordChatTransript: result, playKeywordChatOpen: true, generateKeywordChatOpen: false });
@@ -119,6 +122,9 @@ class ScholarMate extends React.Component {
     var result = '';
     var lang_ = this.state.lang_s
     var cats = this.state.cat
+
+    this.setState({ generateButtonDisabled: true, generateButtonText: "Generating..." });
+
     result = await fetchNewsCompletion(local, cats, lang_ );
 
     this.setState({ transript: result, playOpen: true, generateOpen: false });
@@ -312,8 +318,8 @@ class ScholarMate extends React.Component {
 
 
         <Collapse in={this.state.generateOpen}>
-        <Button onClick={() => this.generateTranscript()} type="submit">
-          Generate
+        <Button onClick={() => this.generateTranscript()}  disabled={this.state.generateButtonDisabled} type="submit">
+        {this.state.generateButtonText}
         </Button>
         </Collapse>
         <br>
