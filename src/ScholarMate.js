@@ -92,6 +92,13 @@ class ScholarMate extends React.Component {
 
   }
 
+  setLocal = (loc) => {
+
+      this.setState({ local: loc });
+
+
+  }
+
   setCat = (catid) => {
       //alert(this.state.cat.includes(catid))
       if (this.state.cat.includes(catid) ){
@@ -153,6 +160,7 @@ class ScholarMate extends React.Component {
   
       <div key='inline-radio' className="mb-3">
           <Form.Check
+            onClick={() => this.setLocal(false)}
             inline
             label="Global"
             name="group1"
@@ -160,6 +168,7 @@ class ScholarMate extends React.Component {
             id='inline-radio'
           />
           <Form.Check
+          onClick={() => this.setLocal(true)}
             inline
             label="Local"
             name="group1"
@@ -249,11 +258,12 @@ class ScholarMate extends React.Component {
      <div>
       <SayButton
      onClick={ event => console.log(event) }
+     voice={this.state.lang}
      speak={this.state.transript}
      pitch={ 1.1 }
      rate={ 0.9 }
      volume={ .8 }
-     voice={this.state.lang}
+     
    >
      Play Podcast
    </SayButton>
