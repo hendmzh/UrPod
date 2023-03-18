@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 
 import {Container, Button, Row, Col, Card, Collapse, Form, Badge} from 'react-bootstrap';
 import extract from './scripts/extract';
+import { SayButton } from 'react-say';
+import Say from 'react-say/lib/Say';
 
-import { fetchDataCompletion } from './APIConnection';
+import { fetchNewsCompletion, fetchDataCompletion } from './APIConnection';
 
 
 class ScholarMate extends React.Component {
@@ -14,14 +16,21 @@ class ScholarMate extends React.Component {
   
     // Initializing the state 
     this.state = {
-
+       
        insightsOpen: false,
        chatOpen: false,
+       generateOpen: true,
+       playOpen: false,
        keywords: ['ChatGPT', 'AI', 'OpenAI'],
+       transript: "This is a test value.",
+       local: false,
+       lang: voices => [...voices].find(v => v.lang === 'ar-SA'), // 'ar-SA'
+       lang_s: 0
       };
   }
   componentDidMount() {
    // extract()
+
 
   }
   
@@ -62,6 +71,27 @@ class ScholarMate extends React.Component {
 
   }
 
+  generateTranscript = async () => {
+
+    var local = this.state.local
+    var result = '';
+    var lang_ = this.state.lang_s
+    result = await fetchNewsCompletion(local, [1, 2], lang_);
+
+    this.setState({ transript: result, playOpen: true, generateOpen: false });
+
+  }
+
+  setLang = (lang) => {
+
+    if(lang == 0){
+      this.setState({ lang: voices => [...voices].find(v => v.lang === 'en-US'), lang_s: 0 });
+    }else{
+      this.setState({ lang: voices => [...voices].find(v => v.lang === 'ar-SA'),  lang_s: 1 });
+    }
+
+  }
+
   render() {
 
     return(
@@ -76,7 +106,7 @@ class ScholarMate extends React.Component {
         </br>
         
         <Container>
-        <h6 className="header text-light" variant="light">What can we do today?</h6> 
+        <h6 className="header text-light" variant="light">Customize your daily podcast</h6> 
         </Container>
         <br>
         </br>
@@ -99,7 +129,6 @@ class ScholarMate extends React.Component {
         <Card.Header>Generate your news podcast episode. </Card.Header>
         <Card.Body>
   
-        <Form>
       <div key='inline-radio' className="mb-3">
           <Form.Check
             inline
@@ -112,6 +141,25 @@ class ScholarMate extends React.Component {
             inline
             label="Local"
             name="group1"
+            type='radio'
+            id='inline-radio-2'
+          />
+        </div>
+
+        <div key='inline-radio-lang' className="mb-3">
+          <Form.Check
+          onClick={() => this.setLang(1)}
+            inline
+            label="Arabic"
+            name="group2"
+            type='radio'
+            id='inline-radio'
+          />
+          <Form.Check
+            onClick={() => this.setLang(0)}
+            inline
+            label="English"
+            name="group2"
             type='radio'
             id='inline-radio-2'
           />
@@ -163,11 +211,27 @@ class ScholarMate extends React.Component {
 
 
 
-
-        <Button variant="light" type="submit">
+        <Collapse in={this.state.generateOpen}>
+        <Button onClick={() => this.generateTranscript()} variant="light" type="submit">
           Generate
         </Button>
-      </Form>
+        </Collapse>
+        <br>
+        </br>
+        <Collapse in={this.state.playOpen}>
+     <div>
+      <SayButton
+     onClick={ event => console.log(event) }
+     speak={this.state.transript}
+     pitch={ 1.1 }
+     rate={ 0.9 }
+     volume={ .8 }
+     voice={this.state.lang}
+   >
+     Play Podcast
+   </SayButton>
+   </div>
+   </Collapse>
         </Card.Body>
       </Card>
         </Collapse>
@@ -205,6 +269,7 @@ class ScholarMate extends React.Component {
           Start
         </Button>
       </Form>
+
         </Card.Body>
       </Card>
         </Collapse>
