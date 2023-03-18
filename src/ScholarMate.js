@@ -25,6 +25,10 @@ class ScholarMate extends React.Component {
        generateOpen: true,
        generateButtonDisabled: false,
        generateButtonText: "Generate",
+       generateButtonTalkDisabled: false,
+       generateButtonTalkText: "Generate",
+       generateButtonStoryDisabled: false,
+       generateButtonStoryText: "Generate",
        generateKeywordOpen: true,
        generateKeywordChatOpen: true,
        playKeywordStoryOpen: false,
@@ -90,6 +94,7 @@ class ScholarMate extends React.Component {
       var lang_ = this.state.lang_s2
 
       var strnew = document.getElementById("story").value;
+      this.setState({ generateButtonStoryDisabled: true, generateButtonStoryText: "Generating..." });
 
     result = await fetchDataCompletion(strnew , "story", lang_);
     this.setState({ keywordStoryTransript: result, playKeywordStoryOpen: true, generateKeywordOpen: false });
@@ -99,7 +104,7 @@ class ScholarMate extends React.Component {
       var lang_ = this.state.lang_s1
 
       var strnew = document.getElementById("chat").value;
-      this.setState({ generateButtonDisabled: true, generateButtonText: "Generating..." });
+      this.setState({ generateButtonTalkDisabled: true, generateButtonTalkText: "Generating..." });
 
     result = await fetchDataCompletion(strnew, "chat", lang_);
     this.setState({ keywordChatTransript: result, playKeywordChatOpen: true, generateKeywordChatOpen: false });
@@ -394,8 +399,8 @@ class ScholarMate extends React.Component {
         <br>
 </br>
         <Collapse in={this.state.generateKeywordChatOpen}>
-        <Button  onClick={() => this.setChats1Open()}>
-          Generate
+        <Button  onClick={() => this.setChats1Open()} disabled={this.state.generateButtonTalkDisabled} >
+        {this.state.generateButtonTalkText}
         </Button>
         </Collapse>
         <br>
@@ -475,8 +480,8 @@ class ScholarMate extends React.Component {
           </Form.Group>
         </Row>
         <Collapse in={this.state.generateKeywordOpen}>
-        <Button  onClick={() => this.setChats1Open()}>
-          Start
+        <Button  onClick={() => this.setChats1Open()} disabled={this.state.generateButtonStoryDisabled}>
+        {this.state.generateButtonStoryText}
         </Button>
         </Collapse>
         <br>
