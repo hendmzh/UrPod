@@ -4,7 +4,7 @@ import {Container, Button, Row, Col, Card, Collapse, Form} from 'react-bootstrap
 
 import Sidebar from './components/sidebar';
 import { BrowserRouter as Router } from 'react-router-dom';
-
+import logo from './logo.png';
 
 import './App.css';
 import ScholarMate from './ScholarMate';

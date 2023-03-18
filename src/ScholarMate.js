@@ -4,6 +4,8 @@ import {Container, Button, Row, Col, Card, Collapse, Form, Badge} from 'react-bo
 import extract from './scripts/extract';
 import { SayButton } from 'react-say';
 import Say from 'react-say/lib/Say';
+import logo from './logo.png';
+
 
 import { fetchNewsCompletion, fetchDataCompletion } from './APIConnection';
 
@@ -126,7 +128,9 @@ class ScholarMate extends React.Component {
     return(
     <Container fluid className="p-3  bg-dark">
       <Container className="p-5 mb-4 bg-dark rounded-3">
-        <h1 className="header text-light" variant="light">UrPod</h1>
+
+<img src={logo} className="App-logo" alt="logo" />
+        <h1 className="header text-light" variant="light">UrPod.ai</h1>
         <br>
         </br>
         <br>
