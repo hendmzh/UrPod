@@ -32,13 +32,15 @@ class ScholarMate extends React.Component {
        keywordChatTransript: "keyword.",
        local: false,
        lang: voices => [...voices].find(v => v.lang === 'ar-SA'), // 'ar-SA'
-       lang_s: 0
+       lang_s: 0,
+       lang_s1:0,
+       lang_s2: 0
       };
   }
   componentDidMount() {
    // extract()
 
-
+ 
   }
   
   setInsightsOpen = () => {
@@ -59,6 +61,7 @@ class ScholarMate extends React.Component {
     }
 
     this.setState({ chatOpen: !this.state.chatOpen });
+    this.setState({ storyOpen: false });
 
 
   }
@@ -68,26 +71,31 @@ class ScholarMate extends React.Component {
     if(!this.state.storyOpen && this.state.insightsOpen){
       this.setState({ insightsOpen: false });
     }
-
-    this.setState({ storyOpen: !this.state.chatOpen });
+    this.setState({ chatOpen: false });
+    this.setState({ storyOpen: !this.state.storyOpen });
   }
 
   setChats1Open = async () =>
   {
     var strnew = ''; 
     var result = "1";
+
     if(this.state.storyOpen)
     {
+      var lang_ = this.state.lang_s2
+
       var strnew = document.getElementById("story").value;
 
-    result = await fetchDataCompletion(strnew , "story");
+    result = await fetchDataCompletion(strnew , "story", lang_);
     this.setState({ keywordStoryTransript: result, playKeywordStoryOpen: true, generateKeywordOpen: false });
     }
     if(this.state.chatOpen)
     {
+      var lang_ = this.state.lang_s1
+
       var strnew = document.getElementById("chat").value;
 
-    result = await fetchDataCompletion(strnew, "chat");
+    result = await fetchDataCompletion(strnew, "chat", lang_);
     this.setState({ keywordChatTransript: result, playKeywordChatOpen: true, generateKeywordChatOpen: false });
 
     }
@@ -119,6 +127,26 @@ class ScholarMate extends React.Component {
       this.setState({ lang: voices => [...voices].find(v => v.lang === 'en-US'), lang_s: 0 });
     }else{
       this.setState({ lang: voices => [...voices].find(v => v.lang === 'ar-SA'),  lang_s: 1 });
+    }
+
+  }
+
+  setLang1 = (lang) => {
+
+    if(lang == 0){
+      this.setState({ lang: voices => [...voices].find(v => v.lang === 'en-US'), lang_s1: 0 });
+    }else{
+      this.setState({ lang: voices => [...voices].find(v => v.lang === 'ar-SA'),  lang_s1: 1 });
+    }
+
+  }
+
+  setLang2 = (lang) => {
+
+    if(lang == 0){
+      this.setState({ lang: voices => [...voices].find(v => v.lang === 'en-US'), lang_s2: 0 });
+    }else{
+      this.setState({ lang: voices => [...voices].find(v => v.lang === 'ar-SA'),  lang_s2: 1 });
     }
 
   }
@@ -291,7 +319,28 @@ class ScholarMate extends React.Component {
         <Card bg='dark' key='dark' text='white' className="mb-2">
         <Card.Header>Enter keywords to explore a new topic and summarize it in a new Broadcast.. </Card.Header>
         <Card.Body>
-  
+        <div key='inline-radio-lang' className="mb-3">
+          <Form.Check
+          onClick={() => this.setLang1(1)}
+            inline
+            label="Arabic"
+            name="group2"
+            type='radio'
+            id='inline-radio'
+          />
+          <Form.Check
+            onClick={() => this.setLang1(0)}
+            inline
+            label="English"
+            name="group2"
+            type='radio'
+            id='inline-radio-2'
+          />
+        </div>
+        <br>
+        </br>
+        <br>
+        </br>
         <Form>
         <Row className="mb-3">
           <Form.Group as={Col} size="sm" controlId="formGridText">
@@ -350,7 +399,24 @@ class ScholarMate extends React.Component {
         <Card bg='dark' key='dark' text='white' className="mb-2">
         <Card.Header>Enter keywords to generate stories for your kids. </Card.Header>
         <Card.Body>
-  
+        <div key='inline-radio-lang' className="mb-3">
+          <Form.Check
+          onClick={() => this.setLang2(1)}
+            inline
+            label="Arabic"
+            name="group2"
+            type='radio'
+            id='inline-radio'
+          />
+          <Form.Check
+            onClick={() => this.setLang2(0)}
+            inline
+            label="English"
+            name="group2"
+            type='radio'
+            id='inline-radio-2'
+          />
+        </div>
         <Form>
         <Row className="mb-3">
           <Form.Group as={Col} size="sm" controlId="formGridText">

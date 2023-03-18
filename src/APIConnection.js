@@ -13,18 +13,26 @@ const headers = {
   };
 
   
-export async function fetchDataCompletion(strnew, typeS) {
+export async function fetchDataCompletion(strnew, typeS, lang) {
 
   var resule ="2";
 
+  
   if(typeS == "story")
   {
+    var cont ='';
+    if(lang == 0){
+      cont = "Your are a podcast creator hosting a daily kids story podcast. Generate a full story transcript about "+ strnew + " for childern ";
+    }
+    else{
+      cont = "  اكتب محتوى لبودكات عن قصص للأطفال تحتوي علي" +" " + strnew + " ";
+    }
     const data = JSON.stringify({
       "model": "gpt-3.5-turbo",
       "messages": [
           {
               "role": "user",
-              "content": "Your are a podcast creator hosting a daily kids story podcast. Generate a full story transcript about "+ strnew + " for childern "
+              "content": cont
             // "content" : "  اكتب محتوى لبودكات عن" +" " + strnew + " "
           }
       ]
@@ -42,13 +50,20 @@ export async function fetchDataCompletion(strnew, typeS) {
   });  
   }
   else{
+    var cont ='';
+    if(lang == 0){
+      cont = "Your are a podcast creator hosting a daily news podcast program. Generate a full transcript about the latest news about"+ strnew + " in details with stories for UrPod podcast hostname Adam ";
+    }
+    else{
+      cont = "  اكتب محتوى لبودكات عن" +" " + strnew + " ";
+    }
     const data = JSON.stringify({
       "model": "gpt-3.5-turbo",
       "messages": [
           {
               "role": "user",
-              "content": "Your are a podcast creator hosting a daily news podcast program. Generate a full transcript about the latest news about"+ strnew + " in details with stories for UrPod podcast hostname Adam "
-            // "content" : "  اكتب محتوى لبودكات عن" +" " + strnew + " "
+              "content": cont
+            
           }
       ]
   });
