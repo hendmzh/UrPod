@@ -25,7 +25,8 @@ class ScholarMate extends React.Component {
        transript: "This is a test value.",
        local: false,
        lang: voices => [...voices].find(v => v.lang === 'ar-SA'), // 'ar-SA'
-       lang_s: 0
+       lang_s: 0,
+       cat : [],
       };
   }
   componentDidMount() {
@@ -74,7 +75,8 @@ class ScholarMate extends React.Component {
     var local = this.state.local
     var result = '';
     var lang_ = this.state.lang_s
-    result = await fetchNewsCompletion(local, [1, 2], lang_);
+    var cats = this.state.cat
+    result = await fetchNewsCompletion(local, cats, lang_ );
 
     this.setState({ transript: result, playOpen: true, generateOpen: false });
 
@@ -87,6 +89,28 @@ class ScholarMate extends React.Component {
     }else{
       this.setState({ lang: voices => [...voices].find(v => v.lang === 'ar-SA'),  lang_s: 1 });
     }
+
+  }
+
+  setCat = (catid) => {
+      //alert(this.state.cat.includes(catid))
+      if (this.state.cat.includes(catid) ){
+          var arr = this.state.cat;
+          var index = arr.indexOf(catid);
+          //alert(arr)
+  
+          arr.splice(index, 1);
+          //alert(arr)
+  
+          this.setState({ cat:arr} );
+      }else{
+        var arr = this.state.cat;
+        arr.push(catid)
+        this.setState(prevState => ({ cat: arr }));
+        //alert(this.state.cat)
+
+      }
+
 
   }
 
@@ -169,6 +193,7 @@ class ScholarMate extends React.Component {
 
         <div key='inline-radio' className="mb-3">
           <Form.Check
+            onChange={() => this.setCat(0)}
             inline
             label="Sports"
             name="group1"
@@ -176,13 +201,15 @@ class ScholarMate extends React.Component {
             id='inline-check'
           />
           <Form.Check
+          onChange={() => this.setCat(1)}
             inline
             label="Politics"
             name="group1"
             type='switch'
             id='inline-check-2'
           />
-                    <Form.Check
+            <Form.Check
+            onChange={() => this.setCat(2)}
             inline
             label="Weather"
             name="group1"
@@ -190,7 +217,8 @@ class ScholarMate extends React.Component {
             id='inline-check-3'
           />
 
-<Form.Check
+          <Form.Check
+          onChange={() => this.setCat(3)}
             inline
             label="Economy"
             name="group1"
@@ -198,7 +226,8 @@ class ScholarMate extends React.Component {
             id='inline-check-4'
           />
 
-<Form.Check
+            <Form.Check
+            onChange={() => this.setCat(4)}
             inline
             label="Breaking News"
             name="group1"
