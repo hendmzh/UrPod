@@ -153,7 +153,7 @@ class ScholarMate extends React.Component {
       this.setState({ lang: voices => [...voices].find(v => v.lang === 'ar-SA'),  lang_s2: 1 });
     }
   }
-  
+
   setLocal = (loc) => {
 
       this.setState({ local: loc });
@@ -422,8 +422,7 @@ class ScholarMate extends React.Component {
 </br>
 <br>
         </br>
-        <br>
-        </br>
+
 <Row>
         <Col>
         <Container>
