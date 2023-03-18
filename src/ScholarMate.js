@@ -19,10 +19,17 @@ class ScholarMate extends React.Component {
        
        insightsOpen: false,
        chatOpen: false,
+       storyOpen: false,
        generateOpen: true,
+       generateKeywordOpen: true,
+       generateKeywordChatOpen: true,
+       playKeywordStoryOpen: false,
+       playKeywordChatOpen: false,
        playOpen: false,
        keywords: ['ChatGPT', 'AI', 'OpenAI'],
        transript: "This is a test value.",
+       keywordStoryTransript: "keyword.",
+       keywordChatTransript: "keyword.",
        local: false,
        lang: voices => [...voices].find(v => v.lang === 'ar-SA'), // 'ar-SA'
        lang_s: 0
@@ -56,13 +63,37 @@ class ScholarMate extends React.Component {
 
   }
 
+  setStoryOpen = () => {
+
+    if(!this.state.storyOpen && this.state.insightsOpen){
+      this.setState({ insightsOpen: false });
+    }
+
+    this.setState({ storyOpen: !this.state.chatOpen });
+  }
+
   setChats1Open = async () =>
   {
-    var strnew = document.getElementById("myInput").value;
-    alert(strnew);
-    var res = "1";
-     res = await fetchDataCompletion(strnew);
-    alert(res);
+    var strnew = ''; 
+    var result = "1";
+    if(this.state.storyOpen)
+    {
+      var strnew = document.getElementById("story").value;
+
+    result = await fetchDataCompletion(strnew , "story");
+    this.setState({ keywordStoryTransript: result, playKeywordStoryOpen: true, generateKeywordOpen: false });
+    }
+    if(this.state.chatOpen)
+    {
+      var strnew = document.getElementById("chat").value;
+
+    result = await fetchDataCompletion(strnew, "chat");
+    this.setState({ keywordChatTransript: result, playKeywordChatOpen: true, generateKeywordChatOpen: false });
+
+    }
+
+
+    //alert(res);
   }
 
   setFinderOpen(){}
@@ -238,9 +269,12 @@ class ScholarMate extends React.Component {
   
         </Container>
         </Col>
-  
+        </Row>
         <br>
         </br>
+        <br>
+        </br>
+        <Row>
         <Col>
         <Container>
       <Button
@@ -251,23 +285,40 @@ class ScholarMate extends React.Component {
           className="text-left"
         >
           <i className="fas fa-comments"></i>
-          Explore a topic
+           Talk about 
         </Button>
         <Collapse in={this.state.chatOpen}>
         <Card bg='dark' key='dark' text='white' className="mb-2">
-        <Card.Header>Enter keywords to explore a new topic and summarize it in a new Broadcast. </Card.Header>
+        <Card.Header>Enter keywords to explore a new topic and summarize it in a new Broadcast.. </Card.Header>
         <Card.Body>
   
         <Form>
         <Row className="mb-3">
           <Form.Group as={Col} size="sm" controlId="formGridText">
-            <Form.Control type="text" placeholder="Link for the article" id="myInput" />
+            <Form.Control type="text" placeholder="Link for the article" id="chat" />
           </Form.Group>
         </Row>
-  
+        <Collapse in={this.state.generateKeywordChatOpen}>
         <Button  onClick={() => this.setChats1Open()}>
           Start
         </Button>
+        </Collapse>
+        <br>
+        </br>
+        <Collapse in={this.state.playKeywordChatOpen}>
+     <div>
+      <SayButton 
+     onClick={ event => console.log(event) }
+     speak={this.state.keywordChatTransript}
+     pitch={ 1.1 }
+     rate={ 0.9 }
+     volume={ .8 }
+     voice={this.state.lang}
+   >
+     Play Podcast
+   </SayButton>
+   </div>
+   </Collapse>
       </Form>
 
         </Card.Body>
@@ -275,7 +326,65 @@ class ScholarMate extends React.Component {
         </Collapse>
         </Container>
         </Col>
+</Row>
+<br>
+</br>
+<br>
+        </br>
+        <br>
+        </br>
+<Row>
+        <Col>
+        <Container>
+      <Button
+          onClick={() => this.setStoryOpen()}
+          aria-controls="example-collapse-text"
+          aria-expanded={this.state.storyOpen}
+          variant= "secondary" style={{ width: '25rem', height: '3rem', textAlign: 'left' }} text='white'
+          className="text-left"
+        >
+          <i className="fas fa-comments"></i>
+           Story for Kids
+        </Button>
+        <Collapse in={this.state.storyOpen}>
+        <Card bg='dark' key='dark' text='white' className="mb-2">
+        <Card.Header>Enter keywords to generate stories for your kids. </Card.Header>
+        <Card.Body>
+  
+        <Form>
+        <Row className="mb-3">
+          <Form.Group as={Col} size="sm" controlId="formGridText">
+            <Form.Control type="text" placeholder="Link for the article" id="story" />
+          </Form.Group>
+        </Row>
+        <Collapse in={this.state.generateKeywordOpen}>
+        <Button  onClick={() => this.setChats1Open()}>
+          Start
+        </Button>
+        </Collapse>
+        <br>
+        </br>
+        <Collapse in={this.state.playKeywordStoryOpen}>
+     <div>
+      <SayButton 
+     onClick={ event => console.log(event) }
+     speak={this.state.keywordStoryTransript}
+     pitch={ 1.1 }
+     rate={ 0.9 }
+     volume={ .8 }
+     voice={this.state.lang}
+   >
+     Play Podcast
+   </SayButton>
+   </div>
+   </Collapse>
+      </Form>
 
+        </Card.Body>
+      </Card>
+        </Collapse>
+        </Container>
+        </Col>
         </Row>
   
   

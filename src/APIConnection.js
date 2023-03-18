@@ -13,8 +13,35 @@ const headers = {
   };
 
   
-export async function fetchDataCompletion(strnew) {
+export async function fetchDataCompletion(strnew, typeS) {
 
+  var resule ="2";
+
+  if(typeS == "story")
+  {
+    const data = JSON.stringify({
+      "model": "gpt-3.5-turbo",
+      "messages": [
+          {
+              "role": "user",
+              "content": "Your are a podcast creator hosting a daily kids story podcast. Generate a full story transcript about "+ strnew + " for childern "
+            // "content" : "  اكتب محتوى لبودكات عن" +" " + strnew + " "
+          }
+      ]
+  });
+
+
+ await axios.post(url+'/v1/chat/completions', data, { headers })
+  .then(response => {
+    var podcast_content = (JSON.parse(JSON.stringify(response.data))['choices'][0]['message']['content'])
+    console.log(podcast_content);
+    resule = podcast_content;
+  })
+  .catch(error => {
+    console.log(error);
+  });  
+  }
+  else{
     const data = JSON.stringify({
       "model": "gpt-3.5-turbo",
       "messages": [
@@ -27,7 +54,6 @@ export async function fetchDataCompletion(strnew) {
   });
 
 
-  var resule ="2";
  await axios.post(url+'/v1/chat/completions', data, { headers })
   .then(response => {
     var podcast_content = (JSON.parse(JSON.stringify(response.data))['choices'][0]['message']['content'])
@@ -36,8 +62,8 @@ export async function fetchDataCompletion(strnew) {
   })
   .catch(error => {
     console.log(error);
-  });  
-
+  }); 
+  }
   return resule;
 }
 
@@ -51,7 +77,7 @@ export async function fetchNewsCompletion(local, categories, lang) {
   content_string  = content_string + (local? "Saudi Arabian": "global")
   content_string  = content_string + " news. Include only the news for the following categories: Sports, Politics, and Tech."
   }else{
-    content_string = "اكتب محتوى لبرنامج إذاعي عن الاخبار الرياضية"
+    content_string = " اكتب محتوى لبرنامج إذاعي عن الاخبار الرياضية"
   }
   
 
