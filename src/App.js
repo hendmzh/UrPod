@@ -13,25 +13,11 @@ import ScholarMate from './ScholarMate';
 
 function App() {
 
-  const [insightsOpen, setInsightsOpen] = useState(false);
-  const [chatOpen, setChatOpen] = useState(false);
-  const [finderOpen, setFinderOpen] = useState(false);
-
   return(
-  <Container fluid className="p-3  bg-dark">
-     <Row>
-       <Col md={2}>
-    <Router>
-        <Sidebar />
-    </Router>
+  <Container fluid className="bg-dark" style = {{height:"100vh"}}>
 
-    </Col>
-
-    <Col md={10}>
 <ScholarMate/>
-    </Col>
 
-    </Row>
 
   </Container>
 
