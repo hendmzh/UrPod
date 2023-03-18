@@ -2,7 +2,7 @@
 Ur self tailored, short and up-to-date podcast using ChatGPT
 "سالفتنا وما فيها، كل يوم"
 
-Presention Link: [https://docs.google.com/presentation/d/e/2PACX-1vQg9HYvUcc9m6BxZ1dFsBNixmBj1BR9brfJ3mdXpR5FCvqXJLd8uerd23sD0gwC2Q/pub?start=false&loop=false&delayms=3000](Here)
+Presention Link: [Here](https://docs.google.com/presentation/d/e/2PACX-1vQg9HYvUcc9m6BxZ1dFsBNixmBj1BR9brfJ3mdXpR5FCvqXJLd8uerd23sD0gwC2Q/pub?start=false&loop=false&delayms=3000)
 
 
 ## Available Scripts
