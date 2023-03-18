@@ -84,19 +84,43 @@ export async function fetchDataCompletion(strnew, typeS, lang) {
 
 
 export async function fetchNewsCompletion(local, categories, lang) {
+  const arabic = ["رياضة","سياسية","طقس","اقتصاد","أحدث الأخبار"];
+  const english = ["Sports","Politics","Weather","Economy","Breaking News"];
 
   var content_string = ""
-
   if(lang == 0){
-  content_string = "Your are a podcast creator hosting a daily news podcast program. Generate a full transcript for today\'s"
-  content_string  = content_string + (local? "Saudi Arabian": "global")
-  content_string  = content_string + " news. Include only the news for the following categories: Sports, Politics, and Tech."
+
+  content_string = "Your are a podcast creator hosting a daily news podcast program. Generate a full transcript for today\'s "
+  content_string  = content_string + (local? "Saudi Arabian": "global");
+  content_string  = content_string + " news. Include only the news for the following categories: ";
+  for(var i= 0; i< categories.length; i++ ){
+
+    if (i == categories.length-1)
+        content_string = content_string + english[categories[i]]+ ". "
+    else 
+        content_string = content_string + english[categories[i]]+ ", "
+
+  }
+
+
   }else{
-    content_string = " اكتب محتوى لبرنامج إذاعي عن الاخبار الرياضية"
+    content_string = " اكتب محتوى لبرنامج إذاعية  ";
+    content_string  = content_string +( local? "المملكة العربية السعودية": "عالمية");
+    content_string = content_string + " عن الاخبار بالفئات التالية   ";
+
+    for(var i= 0; i< categories.length; i++ ){
+
+    
+      if (i == categories.length-1)
+      content_string = content_string + arabic[categories[i]]+ ". "
+  else 
+      content_string = content_string + arabic[categories[i]]+ ", "
+  
+    }
   }
   
 
-
+  console.log(content_string);
 
   const data = JSON.stringify({
     "model": "gpt-3.5-turbo",
