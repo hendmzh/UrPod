@@ -1,3 +1,5 @@
+![tumbnail](urpod_thumb.PNG)
+
 ## UrPod
 Ur self tailored, short and up-to-date podcast using ChatGPT
 "سالفتنا وما فيها، كل يوم"
