@@ -1,4 +1,9 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## UrPod
+Ur self tailored, short and up-to-date podcast using ChatGPT
+"سالفتنا وما فيها، كل يوم"
+
+Presention Link: [https://docs.google.com/presentation/d/e/2PACX-1vQg9HYvUcc9m6BxZ1dFsBNixmBj1BR9brfJ3mdXpR5FCvqXJLd8uerd23sD0gwC2Q/pub?start=false&loop=false&delayms=3000](Here)
+
 
 ## Available Scripts
 
