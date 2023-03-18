@@ -18,16 +18,16 @@ const Sidebar = () => {
     >
       <CDBSidebar textColor="#fff" backgroundColor="#333">
         <CDBSidebarHeader>
-          <Button variant="success">New Project</Button>
+          <Button variant="primary">New Podcast</Button>
         </CDBSidebarHeader>
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
             <NavLink exact to="/" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="newspaper">nlp_project</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="home">Home</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/tables">
-              <CDBSidebarMenuItem icon="newspaper">distributed_systems</CDBSidebarMenuItem>
+            <NavLink exact to="/previous">
+              <CDBSidebarMenuItem icon="newspaper">previous 10-03-2022</CDBSidebarMenuItem>
             </NavLink>
         
            

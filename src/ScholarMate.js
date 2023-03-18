@@ -19,8 +19,8 @@ class ScholarMate extends React.Component {
     // Initializing the state 
     this.state = {
        
-       insightsOpen: false,
-       chatOpen: false,
+       insightsOpen: true,
+       chatOpen: true,
        storyOpen: false,
        generateOpen: true,
        generateKeywordOpen: true,
@@ -48,23 +48,23 @@ class ScholarMate extends React.Component {
   
   setInsightsOpen = () => {
 
-    if(this.state.chatOpen && !this.state.insightsOpen){
-      this.setState({ chatOpen: false });
+    if(this.state.chatOpen && this.state.insightsOpen){
+      this.setState({ storyOpen: false });
     }
 
-    this.setState({ insightsOpen: !this.state.insightsOpen });
+    this.setState({ insightsOpen: !this.state.insightsOpen,
+      chatOpen: !this.state.insightsOpen });
 
 
   }
 
   setChatOpen = () => {
-
-    if(!this.state.chatOpen && this.state.insightsOpen){
-      this.setState({ insightsOpen: false });
+    if(this.state.chatOpen && this.state.insightsOpen){
+      this.setState({ storyOpen: false });
     }
 
-    this.setState({ chatOpen: !this.state.chatOpen });
-    this.setState({ storyOpen: false });
+    this.setState({ insightsOpen: !this.state.insightsOpen,
+      chatOpen: !this.state.insightsOpen });
 
 
   }
@@ -188,18 +188,18 @@ class ScholarMate extends React.Component {
     return(
     <Container fluid className="p-3  bg-dark">
       <Container className="p-5 mb-4 bg-dark rounded-3">
-
+     
 <img src={logo} className="App-logo" alt="logo" />
         <h1 className="header text-light" variant="light">UrPod.ai</h1>
-        <br>
-        </br>
-        <br>
-        </br>
         <br>
         </br>
         
         <Container>
         <h6 className="header text-light" variant="light">Customize your daily podcast</h6> 
+        </Container>
+        <Container>
+
+
         </Container>
         <br>
         </br>
@@ -312,7 +312,7 @@ class ScholarMate extends React.Component {
 
 
         <Collapse in={this.state.generateOpen}>
-        <Button onClick={() => this.generateTranscript()} variant="light" type="submit">
+        <Button onClick={() => this.generateTranscript()} type="submit">
           Generate
         </Button>
         </Collapse>
@@ -339,12 +339,7 @@ class ScholarMate extends React.Component {
   
         </Container>
         </Col>
-        </Row>
-        <br>
-        </br>
-        <br>
-        </br>
-        <Row>
+
         <Col>
         <Container>
       <Button
@@ -386,12 +381,15 @@ class ScholarMate extends React.Component {
         <Form>
         <Row className="mb-3">
           <Form.Group as={Col} size="sm" controlId="formGridText">
-            <Form.Control type="text" placeholder="Link for the article" id="chat" />
+            <Form.Control type="text" placeholder="keywords..." id="chat" />
           </Form.Group>
         </Row>
+
+        <br>
+</br>
         <Collapse in={this.state.generateKeywordChatOpen}>
         <Button  onClick={() => this.setChats1Open()}>
-          Start
+          Generate
         </Button>
         </Collapse>
         <br>
@@ -423,8 +421,14 @@ class ScholarMate extends React.Component {
 <br>
         </br>
 
+        <br>
+</br>
+<br>
+        </br>
+
+
 <Row>
-        <Col>
+        <Col md={{ span: 3, offset: 3 }}>
         <Container>
       <Button
           onClick={() => this.setStoryOpen()}
@@ -461,7 +465,7 @@ class ScholarMate extends React.Component {
         <Form>
         <Row className="mb-3">
           <Form.Group as={Col} size="sm" controlId="formGridText">
-            <Form.Control type="text" placeholder="Link for the article" id="story" />
+            <Form.Control type="text" placeholder="keywords.." id="story" />
           </Form.Group>
         </Row>
         <Collapse in={this.state.generateKeywordOpen}>
